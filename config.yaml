@@ -1,0 +1,19 @@
+pipeline:
+  run_evaluation: true
+  run_calibration: true
+  evaluator_type: "custom_judge"           # Options: "custom_judge" (1-5 scale with justifications) or "ragas" (official Ragas library)
+  
+models:
+  generator_model: "openai/gpt-3.5-turbo" # Model used to generate summaries
+  judge_model: "openai/gpt-4o-mini"        # Fast & cost-effective (or "openai/gpt-4o")
+  embedding_model: "openai/text-embedding-3-small" # Embedding model via OpenRouter
+  openrouter_base_url: "https://openrouter.ai/api/v1"
+  temperature: 0.0                         # 0.0 guarantees deterministic, reproducible scoring
+  max_tokens: 1000                         # Prevents OpenRouter credit reservation errors (default was 16k)
+  
+thresholds:
+  max_acceptable_delta: 0.05               # 5% maximum allowed calibration delta (MAE)
+  
+paths:
+  input_data: "data/human_baseline.csv"
+  evaluation_output: "data/llm_eval_results.json"

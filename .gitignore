@@ -1,0 +1,22 @@
+# Environment variables & API Keys
+.env
+api_key.txt
+gemini-code-*.txt
+
+# Virtual Environment
+.venv/
+venv/
+ENV/
+
+# Python cache
+__pycache__/
+*.py[cod]
+*$py.class
+.pytest_cache/
+
+# macOS
+.DS_Store
+
+# Local Technical Guide
+LLM_As_A_Judge_Technical_Guide.md
+
