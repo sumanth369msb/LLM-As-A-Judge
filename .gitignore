@@ -17,6 +17,4 @@ __pycache__/
 # macOS
 .DS_Store
 
-# Local Technical Guide
-LLM_As_A_Judge_Technical_Guide.md
 
