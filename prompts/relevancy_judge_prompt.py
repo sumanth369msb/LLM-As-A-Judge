@@ -32,7 +32,7 @@ User Request: "Summarize the major incident"
 Summary: "Oracle database crashed at 10pm and was fixed by reboot."
 Output JSON:
 {{
-  "justification": "The summary directly and succinctly fulfills the prompt by identifying the impacted system (Oracle DB) and the resolution (reboot).",
+  "relevancy_justification": "The summary directly and succinctly fulfills the prompt by identifying the impacted system (Oracle DB) and the resolution (reboot).",
   "relevancy_score": 5
 }}
 
@@ -41,7 +41,7 @@ User Request: "Summarize the major incident"
 Summary: "Switch 4 failed causing network issues. Replaced router."
 Output JSON:
 {{
-  "justification": "The summary directly answers the request to summarize the incident by reporting network issues and component replacement, despite a technical entity error.",
+  "relevancy_justification": "The summary directly answers the request to summarize the incident by reporting network issues and component replacement, despite a technical entity error.",
   "relevancy_score": 5
 }}
 
@@ -50,7 +50,7 @@ User Request: "Summarize the major incident"
 Summary: "The office cafeteria will be closed next Monday."
 Output JSON:
 {{
-  "justification": "The output is completely off-topic and fails to discuss any IT system incident or operational downtime.",
+  "relevancy_justification": "The output is completely off-topic and fails to discuss any IT system incident or operational downtime.",
   "relevancy_score": 1
 }}
 
@@ -65,7 +65,7 @@ Generated Summary (Answer):
 
 Respond ONLY with a valid JSON object matching this schema:
 {{
-  "justification": "<Evidence-based explanation of how well the summary satisfies the prompt request>",
+  "relevancy_justification": "<Evidence-based explanation of how well the summary satisfies the prompt request>",
   "relevancy_score": <Integer from 1 to 5>
 }}
 """

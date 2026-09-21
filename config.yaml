@@ -5,11 +5,21 @@ pipeline:
   
 models:
   generator_model: "openai/gpt-3.5-turbo" # Model used to generate summaries
-  judge_model: "openai/gpt-4o-mini"        # Fast & cost-effective (or "openai/gpt-4o")
+  
+  # === JUDGE MODEL OPTIONS ===
+  # Option A (Paid - ~$0.003 for 20 records):
+  judge_model: "openai/gpt-4o-mini"
+  
+  # Option B (100% Free OpenRouter Models - toggle by uncommenting):
+  # judge_model: "meta-llama/llama-3.3-70b-instruct:free"   # Best free reasoning / evaluation model
+  # judge_model: "qwen/qwen-2.5-72b-instruct:free"         # Excellent free alternative, strict JSON adherence
+  # judge_model: "google/gemini-2.0-flash-exp:free"        # Fast free experimental model
+  # judge_model: "meta-llama/llama-3.1-8b-instruct:free"    # Lightweight & fast free model
+  
   embedding_model: "openai/text-embedding-3-small" # Embedding model via OpenRouter
   openrouter_base_url: "https://openrouter.ai/api/v1"
   temperature: 0.0                         # 0.0 guarantees deterministic, reproducible scoring
-  max_tokens: 1000                         # Prevents OpenRouter credit reservation errors (default was 16k)
+  max_tokens: 1000                         # Prevents OpenRouter credit reservation errors
   
 thresholds:
   max_acceptable_delta: 0.05               # 5% maximum allowed calibration delta (MAE)

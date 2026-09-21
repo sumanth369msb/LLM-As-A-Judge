@@ -6,6 +6,7 @@ import pandas as pd
 from dotenv import load_dotenv
 from src.evaluate_ragas import run_evaluation
 from src.calibrate_delta import calculate_calibration_delta
+from src.evaluate_custom_judge import run_custom_judge_evaluation
 
 def main():
     # Load environment variables from .env file
@@ -28,6 +29,7 @@ def main():
     temperature = config['models'].get('temperature', 0.0)
     max_tokens = config['models'].get('max_tokens', 1000)
     max_delta = config['thresholds']['max_acceptable_delta']
+
     
     print("=" * 60)
     print("      STARTING LLM-AS-A-JUDGE QUALITY CONTROL PIPELINE")
@@ -36,15 +38,29 @@ def main():
     # Phase 1: Evaluation with Ragas & OpenRouter
     if config['pipeline'].get('run_evaluation', True):
         print("\n>>> Phase 1: Initializing LLM-as-a-Judge Evaluation...")
-        run_evaluation(
-            data_path=input_data_path,
-            output_path=output_data_path,
-            judge_model_name=judge_model,
-            embedding_model_name=embedding_model,
-            openrouter_base_url=openrouter_base_url,
-            temperature=temperature,
-            max_tokens=max_tokens
-        )
+        if judge_type == 'custom_judge' :
+            print("Now we are runnig the pipeline with custom judge prompts")
+            run_custom_judge_evaluation(
+                data_path=input_data_path,
+                output_path=output_data_path,
+                judge_model_name=judge_model,
+                embedding_model_name=embedding_model,
+                openrouter_base_url=openrouter_base_url,
+                temperature=temperature,
+                max_tokens=max_tokens
+            )
+        else :
+            print(" Now we are running the pipeline using OOB ragas judge prompts")
+            run_evaluation(
+                data_path=input_data_path,
+                output_path=output_data_path,
+                judge_model_name=judge_model,
+                embedding_model_name=embedding_model,
+                openrouter_base_url=openrouter_base_url,
+                temperature=temperature,
+                max_tokens=max_tokens
+            )
+        
     else:
         print("\n[SKIP] Skipping Evaluation Phase (pipeline.run_evaluation is False)")
         

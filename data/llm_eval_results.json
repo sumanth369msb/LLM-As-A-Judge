@@ -1,222 +1,242 @@
 [
   {
-    "question": "Summarize the major incident",
-    "contexts": [
-      "User: Server down. DBAdmin: Oracle DB crashed at 10pm. Fixed by reboot."
-    ],
-    "answer": "Oracle database crashed at 10pm and was fixed by reboot.",
+    "incident_id": "INC001",
+    "user_prompt": "Summarize the major incident",
+    "raw_chat_logs": "User: Server down. DBAdmin: Oracle DB crashed at 10pm. Fixed by reboot.",
+    "generated_summary": "Oracle database crashed at 10pm and was fixed by reboot.",
+    "human_faithfulness_score": 5,
+    "human_relevancy_score": 5,
     "faithfulness": 5.0,
-    "answer_relevancy": 2.0,
-    "faithfulness_raw": 1.0,
-    "answer_relevancy_raw": 0.2930584672135463
+    "faithfulness_justification": "The summary accurately reflects the chat logs, stating that the Oracle database crashed at 10pm and was fixed by reboot. All details match the logs without any fabrication or ambiguity.",
+    "answer_relevancy": 5.0,
+    "relevancy_justification": "The summary directly and succinctly fulfills the prompt by identifying the impacted system (Oracle database) and the resolution (reboot), providing a clear account of the major incident."
   },
   {
-    "question": "Summarize the major incident",
-    "contexts": [
-      "User: Network slow. NetAdmin: Switch 4 failed. Swapped it."
-    ],
-    "answer": "Switch 4 failed causing network issues. Replaced router.",
-    "faithfulness": 3.0,
-    "answer_relevancy": 2.0,
-    "faithfulness_raw": 0.5,
-    "answer_relevancy_raw": 0.32869487502579725
+    "incident_id": "INC002",
+    "user_prompt": "Summarize the major incident",
+    "raw_chat_logs": "User: Network slow. NetAdmin: Switch 4 failed. Swapped it.",
+    "generated_summary": "Switch 4 failed causing network issues. Replaced router.",
+    "human_faithfulness_score": 3,
+    "human_relevancy_score": 5,
+    "faithfulness": 2.0,
+    "faithfulness_justification": "The summary accurately states that Switch 4 failed and that this caused network issues, which aligns with the logs. However, it incorrectly states that a router was replaced instead of specifying that Switch 4 was swapped, which is a significant misrepresentation of the actions taken as per the logs.",
+    "answer_relevancy": 5.0,
+    "relevancy_justification": "The summary effectively addresses the user prompt by clearly identifying the major incident (Switch 4 failure) and its consequence (network issues), as well as the action taken (replaced router). It provides a concise overview of the incident without unnecessary details."
   },
   {
-    "question": "Summarize the major incident",
-    "contexts": [
-      "User: VPN offline. IT: Restarted VPN service."
-    ],
-    "answer": "VPN service was restarted to restore access.",
-    "faithfulness": 3.0,
-    "answer_relevancy": 2.0,
-    "faithfulness_raw": 0.5,
-    "answer_relevancy_raw": 0.26496855624746335
-  },
-  {
-    "question": "Provide root cause and resolution summary",
-    "contexts": [
-      "SRE1: Payment-service CrashLoopBackOff in prod. SRE2: Checked logs, OOMKilled at 512MB limit. SRE1: Bumped container memory limit to 1GB in deployment.yaml and redeployed. SRE2: Pods running 2/2 healthy now."
-    ],
-    "answer": "Payment service experienced CrashLoopBackOff due to an OOMKilled error at 512MB limit. The issue was resolved by increasing the memory limit to 1GB and redeploying.",
+    "incident_id": "INC003",
+    "user_prompt": "Summarize the major incident",
+    "raw_chat_logs": "User: VPN offline. IT: Restarted VPN service.",
+    "generated_summary": "VPN service was restarted to restore access.",
+    "human_faithfulness_score": 5,
+    "human_relevancy_score": 5,
     "faithfulness": 5.0,
-    "answer_relevancy": 2.0,
-    "faithfulness_raw": 1.0,
-    "answer_relevancy_raw": 0.23769706309263816
+    "faithfulness_justification": "The summary accurately reflects the action taken in the logs, stating that the VPN service was restarted. The addition of 'to restore access' is a logical inference based on the context of the VPN being offline, which does not introduce any factual inaccuracies.",
+    "answer_relevancy": 5.0,
+    "relevancy_justification": "The summary directly addresses the user prompt by identifying the major incident involving the VPN service and the action taken (restarting the service) to restore access. It succinctly captures the core event without any unnecessary details."
   },
   {
-    "question": "Summarize the major incident",
-    "contexts": [
-      "OnCall: Getting 502 Bad Gateway alerts on ingress-nginx. SecOps: Ingress SSL cert expired at 00:00 UTC. OnCall: Triggered cert-manager renewal and verified certificate secret updated. Traffic normal."
-    ],
-    "answer": "API gateway threw 502 Bad Gateway errors due to an expired SSL certificate at midnight. Resolved by triggering cert-manager renewal and updating the certificate secret.",
+    "incident_id": "INC004",
+    "user_prompt": "Provide root cause and resolution summary",
+    "raw_chat_logs": "SRE1: Payment-service CrashLoopBackOff in prod. SRE2: Checked logs, OOMKilled at 512MB limit. SRE1: Bumped container memory limit to 1GB in deployment.yaml and redeployed. SRE2: Pods running 2/2 healthy now.",
+    "generated_summary": "Payment service experienced CrashLoopBackOff due to an OOMKilled error at 512MB limit. The issue was resolved by increasing the memory limit to 1GB and redeploying.",
+    "human_faithfulness_score": 5,
+    "human_relevancy_score": 5,
     "faithfulness": 5.0,
-    "answer_relevancy": 2.0,
-    "faithfulness_raw": 1.0,
-    "answer_relevancy_raw": 0.24330170108021779
+    "faithfulness_justification": "The summary accurately reflects the events in the chat logs, including the CrashLoopBackOff status of the payment service, the OOMKilled error at the 512MB limit, and the resolution by increasing the memory limit to 1GB and redeploying. All critical technical details are consistent with the logs, with no extraneous or fabricated information.",
+    "answer_relevancy": 5.0,
+    "relevancy_justification": "The summary directly addresses the user's request for a root cause and resolution summary by clearly identifying the cause of the issue (CrashLoopBackOff due to OOMKilled error) and the resolution (increasing the memory limit and redeploying). It provides both the technical details and the solution, fulfilling the prompt comprehensively."
   },
   {
-    "question": "Provide root cause and resolution summary",
-    "contexts": [
-      "Dev: Microservices cannot resolve external hostnames. CoreDNS pods failed on worker-node-2 after node drain. DevOps: Deleted stale CoreDNS pods to reschedule on healthy nodes. CoreDNS restored."
-    ],
-    "answer": "Microservices failed DNS resolution because CoreDNS pods crashed following a node drain. CoreDNS was restored and the cluster was upgraded to Kubernetes 1.28.",
-    "faithfulness": 4.0,
-    "answer_relevancy": 2.0,
-    "faithfulness_raw": 0.6666666666666666,
-    "answer_relevancy_raw": 0.3438436488677887
-  },
-  {
-    "question": "Summarize the major incident",
-    "contexts": [
-      "OpsLead: Disk usage on Kafka broker-3 hit 98%. DataEng: Topic telemetry-events retention was set to 7 days instead of 24h. OpsLead: Executed log retention cleanup purging segments older than 24 hours. Disk usage back to 42%."
-    ],
-    "answer": "Kafka broker-3 reached 98% disk capacity due to misconfigured 7-day retention on telemetry-events. The issue was resolved by purging logs older than 24 hours reducing disk usage to 42%.",
+    "incident_id": "INC005",
+    "user_prompt": "Summarize the major incident",
+    "raw_chat_logs": "OnCall: Getting 502 Bad Gateway alerts on ingress-nginx. SecOps: Ingress SSL cert expired at 00:00 UTC. OnCall: Triggered cert-manager renewal and verified certificate secret updated. Traffic normal.",
+    "generated_summary": "API gateway threw 502 Bad Gateway errors due to an expired SSL certificate at midnight. Resolved by triggering cert-manager renewal and updating the certificate secret.",
+    "human_faithfulness_score": 5,
+    "human_relevancy_score": 5,
     "faithfulness": 5.0,
-    "answer_relevancy": 2.0,
-    "faithfulness_raw": 1.0,
-    "answer_relevancy_raw": 0.1872521172046944
+    "faithfulness_justification": "The summary accurately reflects the key events from the logs: the 502 Bad Gateway errors are correctly attributed to the expired SSL certificate, which was confirmed to have expired at 00:00 UTC. The resolution steps of triggering cert-manager renewal and updating the certificate secret are also correctly stated. There are no fabricated details or inaccuracies present in the summary.",
+    "answer_relevancy": 5.0,
+    "relevancy_justification": "The summary directly addresses the user prompt by clearly identifying the major incident involving the API gateway and the specific error (502 Bad Gateway) caused by an expired SSL certificate. It also includes the resolution steps taken, which are relevant to understanding the incident's context and resolution. This comprehensive coverage of the incident meets the requirements of the prompt effectively."
   },
   {
-    "question": "Provide root cause and resolution summary",
-    "contexts": [
-      "AppDev: High response latency on user profile API. DBA: Redis cluster memory hit maxmemory 16GB with noeviction policy, rejecting write commands. DBA: Updated redis config to allkeys-lru eviction policy and latency dropped to 12ms."
-    ],
-    "answer": "User profile API experienced high latency because Redis reached its 16GB maxmemory with noeviction policy. The DBA updated the policy to allkeys-lru, restoring normal response latency.",
+    "incident_id": "INC006",
+    "user_prompt": "Provide root cause and resolution summary",
+    "raw_chat_logs": "Dev: Microservices cannot resolve external hostnames. CoreDNS pods failed on worker-node-2 after node drain. DevOps: Deleted stale CoreDNS pods to reschedule on healthy nodes. CoreDNS restored.",
+    "generated_summary": "Microservices failed DNS resolution because CoreDNS pods crashed following a node drain. CoreDNS was restored and the cluster was upgraded to Kubernetes 1.28.",
+    "human_faithfulness_score": 3,
+    "human_relevancy_score": 4,
+    "faithfulness": 2.0,
+    "faithfulness_justification": "The summary accurately states that Microservices failed DNS resolution due to CoreDNS pods crashing after a node drain, which aligns with the logs. However, it introduces an unverified claim about the cluster being upgraded to Kubernetes 1.28, which is not mentioned in the logs. This addition constitutes a significant hallucination.",
+    "answer_relevancy": 5.0,
+    "relevancy_justification": "The summary directly addresses the user request by providing both the root cause (CoreDNS pods crashed due to a node drain) and the resolution (restoration of CoreDNS and upgrade to Kubernetes 1.28). It comprehensively covers the necessary details without omitting any critical information related to the incident."
+  },
+  {
+    "incident_id": "INC007",
+    "user_prompt": "Summarize the major incident",
+    "raw_chat_logs": "OpsLead: Disk usage on Kafka broker-3 hit 98%. DataEng: Topic telemetry-events retention was set to 7 days instead of 24h. OpsLead: Executed log retention cleanup purging segments older than 24 hours. Disk usage back to 42%.",
+    "generated_summary": "Kafka broker-3 reached 98% disk capacity due to misconfigured 7-day retention on telemetry-events. The issue was resolved by purging logs older than 24 hours reducing disk usage to 42%.",
+    "human_faithfulness_score": 5,
+    "human_relevancy_score": 5,
     "faithfulness": 5.0,
-    "answer_relevancy": 2.0,
-    "faithfulness_raw": 1.0,
-    "answer_relevancy_raw": 0.32538611190606404
+    "faithfulness_justification": "The summary accurately reflects the disk usage reaching 98% on Kafka broker-3 and correctly identifies the misconfiguration of the 7-day retention for telemetry-events. It also correctly states that the issue was resolved by purging logs older than 24 hours, resulting in a reduction of disk usage to 42%. All critical details from the logs are preserved without any fabrication or significant ambiguity.",
+    "answer_relevancy": 5.0,
+    "relevancy_justification": "The summary directly addresses the user prompt by clearly identifying the major incident involving Kafka broker-3 reaching 98% disk capacity due to a misconfiguration. It also provides the resolution steps taken to resolve the issue, which is essential for a comprehensive summary of the incident."
   },
   {
-    "question": "Summarize the major incident",
-    "contexts": [
-      "NetOps: Massive packet drop across US-East transit. ISP Cogent sent an errant BGP route withdrawal. NetOps: Rerouted outbound traffic through Telia transit provider at border routers. Packet loss dropped to 0%."
-    ],
-    "answer": "The network team noticed a major power failure in the Virginia datacenter and replaced the faulty generator batteries.",
+    "incident_id": "INC008",
+    "user_prompt": "Provide root cause and resolution summary",
+    "raw_chat_logs": "AppDev: High response latency on user profile API. DBA: Redis cluster memory hit maxmemory 16GB with noeviction policy, rejecting write commands. DBA: Updated redis config to allkeys-lru eviction policy and latency dropped to 12ms.",
+    "generated_summary": "User profile API experienced high latency because Redis reached its 16GB maxmemory with noeviction policy. The DBA updated the policy to allkeys-lru, restoring normal response latency.",
+    "human_faithfulness_score": 5,
+    "human_relevancy_score": 5,
+    "faithfulness": 5.0,
+    "faithfulness_justification": "The summary accurately reflects the key points from the logs: it correctly identifies the high latency issue with the user profile API, the reason being Redis reaching its 16GB maxmemory with a noeviction policy, and the DBA's action of updating the policy to allkeys-lru, which led to a restoration of normal response latency. All critical technical details are consistent with the logs, with no fabricated information.",
+    "answer_relevancy": 5.0,
+    "relevancy_justification": "The summary directly addresses the user request by providing both the root cause (Redis reaching its max memory with a noeviction policy) and the resolution (updating the policy to allkeys-lru). It comprehensively covers the necessary details without omitting any critical information related to the incident."
+  },
+  {
+    "incident_id": "INC009",
+    "user_prompt": "Summarize the major incident",
+    "raw_chat_logs": "NetOps: Massive packet drop across US-East transit. ISP Cogent sent an errant BGP route withdrawal. NetOps: Rerouted outbound traffic through Telia transit provider at border routers. Packet loss dropped to 0%.",
+    "generated_summary": "The network team noticed a major power failure in the Virginia datacenter and replaced the faulty generator batteries.",
+    "human_faithfulness_score": 1,
+    "human_relevancy_score": 2,
     "faithfulness": 1.0,
-    "answer_relevancy": 2.0,
-    "faithfulness_raw": 0.0,
-    "answer_relevancy_raw": 0.32629911419130814
+    "faithfulness_justification": "The summary introduces a completely fabricated event regarding a power failure in the Virginia datacenter and the replacement of generator batteries, which is not mentioned in the logs. The logs specifically discuss packet drops due to an errant BGP route withdrawal and the rerouting of traffic, with no reference to power issues or generator maintenance. This constitutes a gross hallucination.",
+    "answer_relevancy": 5.0,
+    "relevancy_justification": "The summary effectively addresses the user prompt by identifying the major incident (power failure in the Virginia datacenter) and mentioning the action taken (replacing the faulty generator batteries). It provides a clear and concise overview of the incident without omitting any critical details."
   },
   {
-    "question": "Provide root cause and resolution summary",
-    "contexts": [
-      "Backend: Orders table locked up during flash sale. LeadDBA: Deadlock between transaction 8812 and 8814 updating inventory. LeadDBA: Killed blocking PID 4092 using pg_terminate_backend. Queued orders cleared."
-    ],
-    "answer": "Orders table locked during a flash sale due to transaction deadlocks on inventory. Resolved by terminating the blocking process PID 4092.",
+    "incident_id": "INC010",
+    "user_prompt": "Provide root cause and resolution summary",
+    "raw_chat_logs": "Backend: Orders table locked up during flash sale. LeadDBA: Deadlock between transaction 8812 and 8814 updating inventory. LeadDBA: Killed blocking PID 4092 using pg_terminate_backend. Queued orders cleared.",
+    "generated_summary": "Orders table locked during a flash sale due to transaction deadlocks on inventory. Resolved by terminating the blocking process PID 4092.",
+    "human_faithfulness_score": 5,
+    "human_relevancy_score": 5,
     "faithfulness": 5.0,
-    "answer_relevancy": 2.0,
-    "faithfulness_raw": 1.0,
-    "answer_relevancy_raw": 0.23879710741847462
+    "faithfulness_justification": "The summary accurately reflects the key events from the chat logs, including the orders table being locked during a flash sale, the deadlock between transactions 8812 and 8814, and the resolution by terminating the blocking process PID 4092. There are no fabricated details or inaccuracies present in the summary.",
+    "answer_relevancy": 5.0,
+    "relevancy_justification": "The summary directly addresses the user request by providing both the root cause (orders table locked due to transaction deadlocks) and the resolution (terminating the blocking process PID 4092). It comprehensively covers the essential elements required for a root cause and resolution summary."
   },
   {
-    "question": "Summarize the major incident",
-    "contexts": [
-      "Frontend: Static assets returning 403 Forbidden globally. CloudEng: Terraform apply accidentally removed CloudFront Origin Access Identity from S3 bucket policy. CloudEng: Re-applied correct bucket policy granting OAI read access. CloudFront invalidated."
-    ],
-    "answer": "Static assets returned 403 Forbidden because a Terraform change removed the CloudFront Origin Access Identity from the S3 bucket policy. Restored by re-applying the policy.",
+    "incident_id": "INC011",
+    "user_prompt": "Summarize the major incident",
+    "raw_chat_logs": "Frontend: Static assets returning 403 Forbidden globally. CloudEng: Terraform apply accidentally removed CloudFront Origin Access Identity from S3 bucket policy. CloudEng: Re-applied correct bucket policy granting OAI read access. CloudFront invalidated.",
+    "generated_summary": "Static assets returned 403 Forbidden because a Terraform change removed the CloudFront Origin Access Identity from the S3 bucket policy. Restored by re-applying the policy.",
+    "human_faithfulness_score": 5,
+    "human_relevancy_score": 5,
     "faithfulness": 5.0,
+    "faithfulness_justification": "The summary accurately reflects the key events from the chat logs: it correctly identifies that static assets returned a 403 Forbidden error due to the removal of the CloudFront Origin Access Identity from the S3 bucket policy by a Terraform change. It also correctly states that the issue was resolved by re-applying the correct bucket policy, which granted the OAI read access. All critical technical details and entities match the logs without any fabrication or significant ambiguity.",
+    "answer_relevancy": 5.0,
+    "relevancy_justification": "The summary directly addresses the user prompt by clearly identifying the major incident involving static assets returning a 403 Forbidden error due to a Terraform change. It also provides the resolution by stating that the issue was fixed by re-applying the policy, thus comprehensively covering the core incident event."
+  },
+  {
+    "incident_id": "INC012",
+    "user_prompt": "Provide root cause and resolution summary",
+    "raw_chat_logs": "SearchTeam: Elasticsearch cluster status turned YELLOW. Node-3 corrupted translog on index products_v2 shard 4. SearchTeam: Cleared translog and triggered shard allocation from primary replica. Cluster GREEN.",
+    "generated_summary": "Elasticsearch turned yellow due to a corrupted shard translog on node-3. However, all product catalog data was permanently deleted from the cluster.",
+    "human_faithfulness_score": 2,
+    "human_relevancy_score": 3,
+    "faithfulness": 2.0,
+    "faithfulness_justification": "The summary accurately states that the Elasticsearch cluster turned yellow due to a corrupted translog on node-3, which is consistent with the logs. However, it incorrectly claims that all product catalog data was permanently deleted from the cluster, which is not mentioned in the logs. The logs only indicate that the translog was cleared and shard allocation was triggered, leading to the cluster returning to green status. This introduces a significant hallucination regarding data loss.",
+    "answer_relevancy": 3.0,
+    "relevancy_justification": "The summary identifies the root cause of the issue (corrupted shard translog on node-3) and mentions the consequence (permanent deletion of product catalog data), which aligns with the user's request for a root cause and resolution summary. However, it lacks a clear resolution or steps taken to address the issue, which is a critical part of the prompt."
+  },
+  {
+    "incident_id": "INC013",
+    "user_prompt": "Summarize the major incident",
+    "raw_chat_logs": "DevOps: All CI/CD GitHub Actions jobs stuck in queued state. CloudOps: AWS EC2 spot instance hosting self-hosted runner pool was terminated. CloudOps: Spot ASG auto-launched replacement m5.xlarge instance. Runners re-registered and jobs started running.",
+    "generated_summary": "GitHub Actions CI/CD jobs were blocked because the self-hosted runner spot instance was terminated by AWS. The auto-scaling group provisioned a replacement instance and resumed builds.",
+    "human_faithfulness_score": 5,
+    "human_relevancy_score": 5,
+    "faithfulness": 5.0,
+    "faithfulness_justification": "The summary accurately reflects the situation described in the logs. It correctly states that the GitHub Actions CI/CD jobs were blocked due to the termination of the self-hosted runner spot instance by AWS. It also mentions that the auto-scaling group provisioned a replacement instance, which aligns with the logs stating that a replacement m5.xlarge instance was auto-launched and that runners re-registered, allowing jobs to start running. There are no fabricated details or significant inaccuracies present.",
+    "answer_relevancy": 5.0,
+    "relevancy_justification": "The summary directly addresses the user prompt by clearly identifying the major incident involving GitHub Actions CI/CD jobs being blocked due to the termination of a self-hosted runner instance. It also mentions the resolution process, where an auto-scaling group provisioned a replacement instance and resumed builds, thus comprehensively covering the core incident event."
+  },
+  {
+    "incident_id": "INC014",
+    "user_prompt": "Provide root cause and resolution summary",
+    "raw_chat_logs": "SecTeam: Ingress controllers hit 100% CPU utilization. NetSec: Slowloris attack originating from 240 IP addresses sending slow partial HTTP headers. SecTeam: Configured client_header_timeout to 10s and enabled rate limiting in Nginx ingress controller. CPU normalized to 18%.",
+    "generated_summary": "Ingress controllers experienced 100% CPU due to a Slowloris denial-of-service attack. Mitigated by setting client_header_timeout to 10s and enabling rate limiting.",
+    "human_faithfulness_score": 4,
+    "human_relevancy_score": 5,
+    "faithfulness": 5.0,
+    "faithfulness_justification": "The summary accurately reflects the key details from the logs, including the 100% CPU utilization of ingress controllers due to a Slowloris attack and the mitigation steps taken (setting client_header_timeout to 10s and enabling rate limiting). All critical technical details are consistent with the logs, with no fabricated information present.",
+    "answer_relevancy": 5.0,
+    "relevancy_justification": "The summary directly addresses the user request by clearly stating the root cause of the issue (Slowloris denial-of-service attack) and the resolution measures taken (setting client_header_timeout and enabling rate limiting). It comprehensively covers both aspects requested in the prompt without any irrelevant information."
+  },
+  {
+    "incident_id": "INC015",
+    "user_prompt": "Summarize the major incident",
+    "raw_chat_logs": "QA: Staging worker nodes cannot communicate with RDS PostgreSQL staging database. SecLead: Security group audit script accidentally deleted inbound port 5432 rule. SecLead: Re-added inbound rule allowing staging CIDR on port 5432. Connections resumed.",
+    "generated_summary": "A security audit will take place next month to review staging database compliance standards.",
+    "human_faithfulness_score": 2,
+    "human_relevancy_score": 1,
+    "faithfulness": 1.0,
+    "faithfulness_justification": "The generated summary introduces a completely fabricated event about a security audit scheduled for next month, which is not mentioned in the chat logs. The logs detail a specific incident involving the deletion and re-adding of an inbound port rule for the RDS PostgreSQL staging database, but there is no reference to any upcoming audit or compliance review. This represents a gross hallucination of facts.",
     "answer_relevancy": 1.0,
-    "faithfulness_raw": 1.0,
-    "answer_relevancy_raw": 0.10181814103443151
+    "relevancy_justification": "The summary does not address any specific incident; instead, it discusses a future security audit, which is unrelated to summarizing a major incident. There is no mention of an actual event or issue that occurred, making it completely irrelevant to the user's request."
   },
   {
-    "question": "Provide root cause and resolution summary",
-    "contexts": [
-      "SearchTeam: Elasticsearch cluster status turned YELLOW. Node-3 corrupted translog on index products_v2 shard 4. SearchTeam: Cleared translog and triggered shard allocation from primary replica. Cluster GREEN."
-    ],
-    "answer": "Elasticsearch turned yellow due to a corrupted shard translog on node-3. However, all product catalog data was permanently deleted from the cluster.",
-    "faithfulness": 3.0,
-    "answer_relevancy": 2.0,
-    "faithfulness_raw": 0.5,
-    "answer_relevancy_raw": 0.28743971938888135
-  },
-  {
-    "question": "Summarize the major incident",
-    "contexts": [
-      "DevOps: All CI/CD GitHub Actions jobs stuck in queued state. CloudOps: AWS EC2 spot instance hosting self-hosted runner pool was terminated. CloudOps: Spot ASG auto-launched replacement m5.xlarge instance. Runners re-registered and jobs started running."
-    ],
-    "answer": "GitHub Actions CI/CD jobs were blocked because the self-hosted runner spot instance was terminated by AWS. The auto-scaling group provisioned a replacement instance and resumed builds.",
+    "incident_id": "INC016",
+    "user_prompt": "Provide root cause and resolution summary",
+    "raw_chat_logs": "AppTeam: RabbitMQ broker refusing new AMQP connections with EMFILE error. DevOps: Notification service release v2.4.1 spawned unpooled AMQP channels exhausting file descriptors. DevOps: Rolled back notification service to v2.4.0 and restarted RabbitMQ service.",
+    "generated_summary": "RabbitMQ threw EMFILE connection errors because notification service v2.4.1 leaked unpooled AMQP channels and exhausted file descriptors. Resolved by rolling back to v2.4.0 and restarting RabbitMQ.",
+    "human_faithfulness_score": 5,
+    "human_relevancy_score": 5,
     "faithfulness": 5.0,
-    "answer_relevancy": 2.0,
-    "faithfulness_raw": 1.0,
-    "answer_relevancy_raw": 0.20685844234238351
+    "faithfulness_justification": "The summary accurately reflects the key points from the chat logs: RabbitMQ throwing EMFILE errors, the cause being the notification service v2.4.1 leaking unpooled AMQP channels, and the resolution involving rolling back to v2.4.0 and restarting RabbitMQ. All critical technical details are consistent with the logs, and there are no fabricated elements.",
+    "answer_relevancy": 5.0,
+    "relevancy_justification": "The summary directly addresses the user request by providing both the root cause of the issue (RabbitMQ throwing EMFILE connection errors due to leaked unpooled AMQP channels) and the resolution (rolling back to v2.4.0 and restarting RabbitMQ). It comprehensively covers the necessary details without omitting any critical information."
   },
   {
-    "question": "Provide root cause and resolution summary",
-    "contexts": [
-      "SecTeam: Ingress controllers hit 100% CPU utilization. NetSec: Slowloris attack originating from 240 IP addresses sending slow partial HTTP headers. SecTeam: Configured client_header_timeout to 10s and enabled rate limiting in Nginx ingress controller. CPU normalized to 18%."
-    ],
-    "answer": "Ingress controllers experienced 100% CPU due to a Slowloris denial-of-service attack. Mitigated by setting client_header_timeout to 10s and enabling rate limiting.",
+    "incident_id": "INC017",
+    "user_prompt": "Summarize the major incident",
+    "raw_chat_logs": "Support: Multiple customers reporting 403 errors during checkout. SecOps: Cloudflare WAF custom rule 10045 falsely triggered on valid JSON checkout bodies containing SQL keywords. SecOps: Switched rule 10045 from BLOCK to LOG/SIMULATE mode. Checkout restored.",
+    "generated_summary": "Checkout customers received 403 errors due to Cloudflare WAF rule 10045 misidentifying legitimate payloads. The rule was switched to simulate mode to restore checkouts.",
+    "human_faithfulness_score": 5,
+    "human_relevancy_score": 5,
     "faithfulness": 5.0,
-    "answer_relevancy": 2.0,
-    "faithfulness_raw": 1.0,
-    "answer_relevancy_raw": 0.25904777192439304
+    "faithfulness_justification": "The summary accurately reflects the key points from the logs: it correctly identifies that customers received 403 errors due to the Cloudflare WAF rule 10045 misidentifying valid JSON checkout bodies. It also correctly states that the rule was switched to simulate mode to restore checkouts. All critical technical details match the logs without any fabricated information.",
+    "answer_relevancy": 5.0,
+    "relevancy_justification": "The summary directly addresses the user prompt by clearly identifying the major incident involving checkout customers receiving 403 errors due to a specific Cloudflare WAF rule. It also explains the resolution taken (switching the rule to simulate mode) to restore checkouts, which comprehensively covers the core incident event."
   },
   {
-    "question": "Summarize the major incident",
-    "contexts": [
-      "QA: Staging worker nodes cannot communicate with RDS PostgreSQL staging database. SecLead: Security group audit script accidentally deleted inbound port 5432 rule. SecLead: Re-added inbound rule allowing staging CIDR on port 5432. Connections resumed."
-    ],
-    "answer": "A security audit will take place next month to review staging database compliance standards.",
-    "faithfulness": 1.0,
-    "answer_relevancy": 2.0,
-    "faithfulness_raw": 0.0,
-    "answer_relevancy_raw": 0.23451959359167474
-  },
-  {
-    "question": "Provide root cause and resolution summary",
-    "contexts": [
-      "AppTeam: RabbitMQ broker refusing new AMQP connections with EMFILE error. DevOps: Notification service release v2.4.1 spawned unpooled AMQP channels exhausting file descriptors. DevOps: Rolled back notification service to v2.4.0 and restarted RabbitMQ service."
-    ],
-    "answer": "RabbitMQ threw EMFILE connection errors because notification service v2.4.1 leaked unpooled AMQP channels and exhausted file descriptors. Resolved by rolling back to v2.4.0 and restarting RabbitMQ.",
+    "incident_id": "INC018",
+    "user_prompt": "Provide root cause and resolution summary",
+    "raw_chat_logs": "Infra: ZooKeeper quorum lost between AZ-1 and AZ-2. NetworkTeam: Inter-AZ VPC peering connection dropped due to routing table deletion. NetworkTeam: Recreated VPC peering route and restarted ZooKeeper leader node on node-1. Quorum re-established.",
+    "generated_summary": "ZooKeeper lost quorum due to dropped inter-AZ VPC peering routes. Resolved by recreating the VPC route and restarting the leader node.",
+    "human_faithfulness_score": 5,
+    "human_relevancy_score": 5,
     "faithfulness": 5.0,
-    "answer_relevancy": 2.0,
-    "faithfulness_raw": 1.0,
-    "answer_relevancy_raw": 0.2067405159588749
+    "faithfulness_justification": "The summary accurately reflects the loss of ZooKeeper quorum due to the dropped inter-AZ VPC peering routes, which is directly stated in the logs. It also correctly mentions the resolution steps of recreating the VPC route and restarting the leader node, aligning perfectly with the logs. There are no fabricated details or inaccuracies present.",
+    "answer_relevancy": 5.0,
+    "relevancy_justification": "The summary directly addresses the user request by providing both the root cause (ZooKeeper lost quorum due to dropped inter-AZ VPC peering routes) and the resolution (recreating the VPC route and restarting the leader node). It comprehensively covers the essential elements required by the prompt."
   },
   {
-    "question": "Summarize the major incident",
-    "contexts": [
-      "Support: Multiple customers reporting 403 errors during checkout. SecOps: Cloudflare WAF custom rule 10045 falsely triggered on valid JSON checkout bodies containing SQL keywords. SecOps: Switched rule 10045 from BLOCK to LOG/SIMULATE mode. Checkout restored."
-    ],
-    "answer": "Checkout customers received 403 errors due to Cloudflare WAF rule 10045 misidentifying legitimate payloads. The rule was switched to simulate mode to restore checkouts.",
+    "incident_id": "INC019",
+    "user_prompt": "Summarize the major incident",
+    "raw_chat_logs": "DBA: MongoDB secondary replica lag exceeded 4 hours. DataEng: Unthrottled ETL job wrote 15 million records directly to primary. DBA: Throttled ETL batch rate and initiated resync on the secondary node. Replication lag normalized to 2 seconds.",
+    "generated_summary": "MongoDB secondary replica lag spiked over 4 hours due to an unthrottled 15-million record ETL insert. Resolved by throttling the ETL job and resyncing the secondary node.",
+    "human_faithfulness_score": 5,
+    "human_relevancy_score": 5,
     "faithfulness": 5.0,
-    "answer_relevancy": 2.0,
-    "faithfulness_raw": 1.0,
-    "answer_relevancy_raw": 0.16772356072180403
+    "faithfulness_justification": "The summary accurately reflects the key events from the logs: the MongoDB secondary replica lag exceeding 4 hours, the cause being an unthrottled ETL job that wrote 15 million records directly to the primary, and the resolution steps of throttling the ETL job and initiating a resync on the secondary node. All critical details match the logs without any fabrication or significant ambiguity.",
+    "answer_relevancy": 5.0,
+    "relevancy_justification": "The summary directly addresses the user prompt by clearly identifying the major incident involving MongoDB, detailing the cause (spike in secondary replica lag due to an unthrottled ETL insert) and the resolution (throttling the ETL job and resyncing the secondary node). It comprehensively covers the core elements of the incident without any irrelevant information."
   },
   {
-    "question": "Provide root cause and resolution summary",
-    "contexts": [
-      "Infra: ZooKeeper quorum lost between AZ-1 and AZ-2. NetworkTeam: Inter-AZ VPC peering connection dropped due to routing table deletion. NetworkTeam: Recreated VPC peering route and restarted ZooKeeper leader node on node-1. Quorum re-established."
-    ],
-    "answer": "ZooKeeper lost quorum due to dropped inter-AZ VPC peering routes. Resolved by recreating the VPC route and restarting the leader node.",
+    "incident_id": "INC020",
+    "user_prompt": "Provide root cause and resolution summary",
+    "raw_chat_logs": "Billing: Stripe webhook events failing with 401 Signature Verification Failed. BackendLead: Stripe webhook signing secret expired and was not rotated in AWS Secrets Manager. BackendLead: Updated signing secret in Secrets Manager and triggered replay of 450 missed webhooks.",
+    "generated_summary": "Stripe webhooks failed signature verification because the signing secret was not rotated in AWS Secrets Manager. Resolved by updating the secret and replaying 450 missed webhooks.",
+    "human_faithfulness_score": 4,
+    "human_relevancy_score": 5,
     "faithfulness": 5.0,
-    "answer_relevancy": 2.0,
-    "faithfulness_raw": 1.0,
-    "answer_relevancy_raw": 0.3513690679905893
-  },
-  {
-    "question": "Summarize the major incident",
-    "contexts": [
-      "DBA: MongoDB secondary replica lag exceeded 4 hours. DataEng: Unthrottled ETL job wrote 15 million records directly to primary. DBA: Throttled ETL batch rate and initiated resync on the secondary node. Replication lag normalized to 2 seconds."
-    ],
-    "answer": "MongoDB secondary replica lag spiked over 4 hours due to an unthrottled 15-million record ETL insert. Resolved by throttling the ETL job and resyncing the secondary node.",
-    "faithfulness": 5.0,
-    "answer_relevancy": 2.0,
-    "faithfulness_raw": 1.0,
-    "answer_relevancy_raw": 0.2319549660605069
-  },
-  {
-    "question": "Provide root cause and resolution summary",
-    "contexts": [
-      "Billing: Stripe webhook events failing with 401 Signature Verification Failed. BackendLead: Stripe webhook signing secret expired and was not rotated in AWS Secrets Manager. BackendLead: Updated signing secret in Secrets Manager and triggered replay of 450 missed webhooks."
-    ],
-    "answer": "Stripe webhooks failed signature verification because the signing secret was not rotated in AWS Secrets Manager. Resolved by updating the secret and replaying 450 missed webhooks.",
-    "faithfulness": 5.0,
-    "answer_relevancy": 2.0,
-    "faithfulness_raw": 1.0,
-    "answer_relevancy_raw": 0.1697292906703965
+    "faithfulness_justification": "The summary accurately reflects the key details from the logs, including the failure of the Stripe webhooks due to the expired signing secret, which was not rotated in AWS Secrets Manager. It also correctly states that the issue was resolved by updating the signing secret and replaying 450 missed webhooks. All critical technical details match the logs without any fabrication or ambiguity.",
+    "answer_relevancy": 5.0,
+    "relevancy_justification": "The summary directly addresses the user request by clearly stating the root cause of the issue (failed signature verification due to the signing secret not being rotated) and the resolution (updating the secret and replaying missed webhooks). It comprehensively covers both aspects requested in the prompt."
   }
 ]

@@ -32,7 +32,7 @@ Context: "User: Server down. DBAdmin: Oracle DB crashed at 10pm. Fixed by reboot
 Summary: "Oracle database crashed at 10pm and was fixed by reboot."
 Output JSON:
 {{
-  "justification": "All claims, including the 10pm timestamp, Oracle database entity, and reboot resolution, directly match the chat logs with zero fabricated information.",
+  "faithfulness_justification": "All claims, including the 10pm timestamp, Oracle database entity, and reboot resolution, directly match the chat logs with zero fabricated information.",
   "faithfulness_score": 5
 }}
 
@@ -41,7 +41,7 @@ Context: "User: Network slow. NetAdmin: Switch 4 failed. Swapped it."
 Summary: "Switch 4 failed causing network issues. Replaced router."
 Output JSON:
 {{
-  "justification": "The summary correctly captures the network degradation and Switch 4 failure, but hallucinates replacing a router when logs explicitly state Switch 4 was swapped.",
+  "faithfulness_justification": "The summary correctly captures the network degradation and Switch 4 failure, but hallucinates replacing a router when logs explicitly state Switch 4 was swapped.",
   "faithfulness_score": 3
 }}
 
@@ -50,7 +50,7 @@ Context: "User: VPN offline. IT: Restarted VPN service."
 Summary: "VPN service was restarted to restore access."
 Output JSON:
 {{
-  "justification": "Restarting the VPN service matches the logs directly. Stating 'to restore access' is a valid domain entailment of resolving an offline service, not a factual hallucination.",
+  "faithfulness_justification": "Restarting the VPN service matches the logs directly. Stating 'to restore access' is a valid domain entailment of resolving an offline service, not a factual hallucination.",
   "faithfulness_score": 5
 }}
 
@@ -65,7 +65,7 @@ Generated Summary (Answer):
 
 Respond ONLY with a valid JSON object matching this schema:
 {{
-  "justification": "<Evidence-based explanation citing specific facts from logs that justify the score>",
+  "faithfulness_justification": "<Evidence-based explanation citing specific facts from logs that justify the score>",
   "faithfulness_score": <Integer from 1 to 5>
 }}
 """

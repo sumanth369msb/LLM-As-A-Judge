@@ -64,12 +64,12 @@ def run_custom_judge_evaluation(
         default_headers=headers
     )
     
-    embeddings_model = OpenAIEmbeddings(
-        model=embedding_model_name,
-        openai_api_key=api_key,
-        openai_api_base=openrouter_base_url,
-        default_headers=headers
-    )
+    # embeddings_model = OpenAIEmbeddings(
+    #     model=embedding_model_name,
+    #     openai_api_key=api_key,
+    #     openai_api_base=openrouter_base_url,
+    #     default_headers=headers
+    # )
     
     print(f"[INFO] Evaluating {len(df)} records with custom prompts and extracting justifications...")
     
@@ -77,7 +77,7 @@ def run_custom_judge_evaluation(
     faithfulness_justifications = []
     relevancy_scores = []
     relevancy_justifications = []
-    embedding_similarities = []
+    # embedding_similarities = []
     
     for idx, row in df.iterrows():
         incident_id = row.get('incident_id', f'Record-{idx+1}')
@@ -91,7 +91,7 @@ def run_custom_judge_evaluation(
             f_resp = judge_llm.invoke(f_prompt_val)
             f_parsed = json.loads(clean_json_text(f_resp.content))
             f_score = float(f_parsed.get('faithfulness_score', 5))
-            f_just = str(f_parsed.get('justification', 'No justification provided.'))
+            f_just = str(f_parsed.get('faithfulness_justification') or f_parsed.get('justification') or 'No justification provided.')
         except Exception as e:
             f_score, f_just = 5.0, f"Parse error: {e}"
             
@@ -101,30 +101,30 @@ def run_custom_judge_evaluation(
             r_resp = judge_llm.invoke(r_prompt_val)
             r_parsed = json.loads(clean_json_text(r_resp.content))
             r_score = float(r_parsed.get('relevancy_score', 5))
-            r_just = str(r_parsed.get('justification', 'No justification provided.'))
+            r_just = str(r_parsed.get('relevancy_justification') or r_parsed.get('justification') or 'No justification provided.')
         except Exception as e:
             r_score, r_just = 5.0, f"Parse error: {e}"
             
-        # 3. Vector Embeddings Similarity
-        try:
-            p_emb = embeddings_model.embed_query(prompt)
-            s_emb = embeddings_model.embed_query(summary)
-            sim = cosine_similarity(p_emb, s_emb)
-        except Exception:
-            sim = 1.0
+        # # 3. Vector Embeddings Similarity
+        # try:
+        #     p_emb = embeddings_model.embed_query(prompt)
+        #     s_emb = embeddings_model.embed_query(summary)
+        #     sim = cosine_similarity(p_emb, s_emb)
+        # except Exception:
+        #     sim = 1.0
             
         faithfulness_scores.append(f_score)
         faithfulness_justifications.append(f_just)
         relevancy_scores.append(r_score)
         relevancy_justifications.append(r_just)
-        embedding_similarities.append(sim)
+        # embedding_similarities.append(sim)
         
     result_df = df.copy()
     result_df['faithfulness'] = faithfulness_scores
     result_df['faithfulness_justification'] = faithfulness_justifications
     result_df['answer_relevancy'] = relevancy_scores
     result_df['relevancy_justification'] = relevancy_justifications
-    result_df['embedding_similarity'] = embedding_similarities
+    # result_df['embedding_similarity'] = embedding_similarities
     
     os.makedirs(os.path.dirname(output_path), exist_ok=True)
     if output_path.endswith('.json'):
