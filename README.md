@@ -12,7 +12,7 @@ Built with CI/CD integration in mind, the pipeline incorporates a **Calibration 
 - **Multi-Provider Support**: Seamlessly swap between Google Gemini, Groq, OpenRouter, and OpenAI with a single config change. Zero code modifications required.
 - **Automated CI/CD Calibration Gate**: Phase 2 calculates the Weighted Delta between the LLM Judge's scores and the human baseline. If the delta exceeds the configurable threshold, the pipeline fails with a non-zero exit code.
 - **Online Shadow Evaluation**: Phase 3 samples live production traffic, evaluates it asynchronously in the background, and monitors for quality drift over time.
-- **Config-Driven Design**: 100% controlled via `config.yaml`.
+- **Config-Driven Design**: 100% controlled via `config.yaml` .
 
 ## Project Structure
 
