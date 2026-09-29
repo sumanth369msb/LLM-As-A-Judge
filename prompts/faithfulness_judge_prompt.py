@@ -1,14 +1,10 @@
-from langchain.prompts import PromptTemplate
-
 # ==============================================================================
 # FAITHFULNESS (HALLUCINATION DETECTION) JUDGE PROMPT - 1 TO 5 LIKERT SCALE
 # Evaluates purely whether the generated summary adheres to the source chat logs.
 # Requires explicit step-by-step JUSTIFICATION before assigning the numerical score.
 # ==============================================================================
 
-FAITHFULNESS_JUDGE_PROMPT = PromptTemplate(
-    input_variables=["contexts", "answer"],
-    template="""You are an expert Machine Learning Quality Assurance Evaluator specializing in hallucination detection.
+FAITHFULNESS_JUDGE_PROMPT = """You are an expert Machine Learning Quality Assurance Evaluator specializing in hallucination detection.
 Your task is to evaluate the 'Faithfulness' of a generated summary based STRICTLY on the provided raw incident chat logs.
 You must provide a clear, evidence-based JUSTIFICATION explaining your score before outputting the final rating.
 
@@ -69,4 +65,3 @@ Respond ONLY with a valid JSON object matching this schema:
   "faithfulness_score": <Integer from 1 to 5>
 }}
 """
-)

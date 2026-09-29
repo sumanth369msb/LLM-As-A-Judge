@@ -1,29 +1,49 @@
+# ==============================================================================
+# LLM-As-A-Judge Quality Control Pipeline — Central Configuration
+# ==============================================================================
+
 pipeline:
-  run_evaluation: true
-  run_calibration: true
-  evaluator_type: "custom_judge"           # Options: "custom_judge" (1-5 scale with justifications) or "ragas" (official Ragas library)
-  
+  run_evaluation: true                     # Phase 1: Batch LLM-as-a-Judge evaluation
+  run_calibration: true                    # Phase 2: Calibration Gate vs human baseline
+  evaluator_type: "custom_judge"           # Options: "custom_judge" or "ragas"
+
 models:
-  generator_model: "openai/gpt-3.5-turbo" # Model used to generate summaries
-  
-  # === JUDGE MODEL OPTIONS ===
-  # Option A (Paid - ~$0.003 for 20 records):
-  judge_model: "openai/gpt-4o-mini"
-  
-  # Option B (100% Free OpenRouter Models - toggle by uncommenting):
-  # judge_model: "meta-llama/llama-3.3-70b-instruct:free"   # Best free reasoning / evaluation model
-  # judge_model: "qwen/qwen-2.5-72b-instruct:free"         # Excellent free alternative, strict JSON adherence
-  # judge_model: "google/gemini-2.0-flash-exp:free"        # Fast free experimental model
-  # judge_model: "meta-llama/llama-3.1-8b-instruct:free"    # Lightweight & fast free model
-  
-  embedding_model: "openai/text-embedding-3-small" # Embedding model via OpenRouter
+  generator_model: "openai/gpt-3.5-turbo"
+
+  # === JUDGE MODEL (used by all phases) ===
+  # Prefix determines the provider:
+  #   "gemini/"  → Google AI Studio (OpenAI-compatible)
+  #   "groq/"    → Groq Cloud
+  #   (no prefix)→ OpenRouter / native OpenAI
+  judge_model: "gemini/gemini-3.5-flash"
+
+  embedding_model: "openai/text-embedding-3-small"
   openrouter_base_url: "https://openrouter.ai/api/v1"
-  temperature: 0.0                         # 0.0 guarantees deterministic, reproducible scoring
-  max_tokens: 1000                         # Prevents OpenRouter credit reservation errors
-  
+  max_tokens: 1000
+
 thresholds:
-  max_acceptable_delta: 0.05               # 5% maximum allowed calibration delta (MAE)
-  
+  max_acceptable_delta: 0.05               # 5% maximum calibration delta (MAE)
+
 paths:
   input_data: "data/human_baseline.csv"
   evaluation_output: "data/llm_eval_results.json"
+
+# ==============================================================================
+# Phase 3: Online Shadow Evaluation — Production Drift Monitoring
+# ==============================================================================
+online_evaluation:
+  run_simulation: true                    # Set true to simulate shadow evals from CSV
+  run_drift_report: true                  # Set true to generate a drift report only
+
+  # Simulation Settings (used when run_simulation: true)
+  simulation_data: "data/load_test_150.csv"
+  max_simulation_records: 10               # Number of records to evaluate in simulation
+  sample_rate: 1.0                         # 1.0 = evaluate all records (testing mode)
+
+  # Database & Reporting
+  db_path: "data/shadow_evals.db"          # SQLite database for shadow evaluation results
+  report_lookback_days: 7                  # Days to look back for drift report
+
+  # Production Settings (used when integrating ShadowEvaluator into a live app)
+  # sample_rate: 0.05                      # 5% of live traffic (production mode)
+  drift_alert_threshold: 2.0              # Score ≤ this triggers a DRIFT ALERT

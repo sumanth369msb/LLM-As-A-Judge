@@ -1,14 +1,10 @@
-from langchain.prompts import PromptTemplate
-
 # ==============================================================================
 # RELEVANCY (PROMPT ALIGNMENT) JUDGE PROMPT - 1 TO 5 LIKERT SCALE
 # Evaluates purely whether the generated summary addresses the user prompt.
 # Requires explicit step-by-step JUSTIFICATION before assigning the numerical score.
 # ==============================================================================
 
-RELEVANCY_JUDGE_PROMPT = PromptTemplate(
-    input_variables=["question", "answer"],
-    template="""You are an expert Machine Learning Quality Assurance Evaluator specializing in prompt alignment.
+RELEVANCY_JUDGE_PROMPT = """You are an expert Machine Learning Quality Assurance Evaluator specializing in prompt alignment.
 Your task is to evaluate the 'Relevancy' of a generated summary based STRICTLY on the user's prompt request.
 You must provide a clear, evidence-based JUSTIFICATION explaining your score before outputting the final rating.
 
@@ -69,4 +65,3 @@ Respond ONLY with a valid JSON object matching this schema:
   "relevancy_score": <Integer from 1 to 5>
 }}
 """
-)
