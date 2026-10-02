@@ -5,6 +5,7 @@ numpy>=1.24.0
 pyyaml>=6.0
 scikit-learn>=1.4.0
 python-dotenv>=1.0.0
+langsmith>=0.1.0                # Optional: LangSmith observability backend
 
 # Legacy (Phase 1 Ragas engine — optional)
 # ragas==0.1.7

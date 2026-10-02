@@ -10,12 +10,13 @@ pipeline:
 models:
   generator_model: "openai/gpt-3.5-turbo"
 
-  # === JUDGE MODEL (used by all phases) ===
-  # Prefix determines the provider:
-  #   "gemini/"  → Google AI Studio (OpenAI-compatible)
-  #   "groq/"    → Groq Cloud
-  #   (no prefix)→ OpenRouter / native OpenAI
-  judge_model: "gemini/gemini-3.5-flash"
+  # Waterfall Fallback Routing:
+  # The system will try the first model. If it hits a rate limit (429) or is overloaded (503),
+  # it will instantly fallback to the next model in the list.
+  judge_models:
+    - "gemini/gemini-3.5-flash"
+    - "groq/llama3-8b-8192"
+    - "openai/gpt-4o-mini"
 
   embedding_model: "openai/text-embedding-3-small"
   openrouter_base_url: "https://openrouter.ai/api/v1"
@@ -47,3 +48,10 @@ online_evaluation:
   # Production Settings (used when integrating ShadowEvaluator into a live app)
   # sample_rate: 0.05                      # 5% of live traffic (production mode)
   drift_alert_threshold: 2.0              # Score ≤ this triggers a DRIFT ALERT
+
+  # === Observability Backend ===
+  # Options:
+  #   "native"    → SQLite-based local observability (zero external deps)
+  #   "langsmith" → LangSmith cloud tracing (requires LANGSMITH_API_KEY in .env)
+  observability_backend: "native"
+  langsmith_project: "LLM-As-A-Judge"       # LangSmith project name (used when backend is "langsmith")
