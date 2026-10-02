@@ -17,32 +17,40 @@ Built with CI/CD integration in mind, the pipeline incorporates a **Calibration 
 ## Project Structure
 
 ```
-├── config.yaml                   # Central configuration for all 3 phases
-├── run_pipeline.py               # Main entry point orchestrating the full pipeline
-├── requirements.txt              # Python dependencies
-├── .env                          # API keys (GEMINI_API_KEY, GROQ_API_KEY, etc.)
+├── config.yaml                          # Central configuration for all 3 phases
+├── scripts/
+│   └── run_pipeline.py                  # Main entry point orchestrating the full pipeline
+├── requirements.txt                     # Python dependencies
+├── .env                                 # Secrets & API keys (GEMINI_API_KEY, GROQ_API_KEY, etc.)
 │
 ├── src/
-│   ├── llm_client.py             # Centralized LLM client factory (Gemini/Groq/OpenRouter)
-│   ├── evaluate_custom_judge.py  # Phase 1: Batch evaluation with custom judge prompts
-│   ├── evaluate_ragas.py         # Phase 1: Alternative evaluation using Ragas library
-│   ├── calibrate_delta.py        # Phase 2: Calibration gate (LLM vs Human delta)
-│   └── online_evaluator.py       # Phase 3: Shadow evaluation & drift monitoring
+│   ├── llm_client.py                    # Multi-provider client factory with Waterfall Fallback Routing
+│   │
+│   ├── phase_1_evaluation/              # Phase 1: Batch LLM-as-a-Judge Evaluation
+│   │   ├── custom_judges/               # In-house prompt-based scoring (Likert 1-5)
+│   │   └── ragas/                       # Alternative evaluation using Ragas library
+│   │
+│   ├── phase_2_calibration/             # Phase 2: Calibration Gate vs Human Baseline
+│   │   └── calibration/                 # Weighted delta calculation & MAE gate math
+│   │
+│   └── phase_3_online_evals/            # Phase 3: Online Shadow Evaluation & Tracing
+│       ├── langsmith_online_evals/      # Async production shadow-mode handlers
+│       └── custom_online_evals/         # Observability backends (LangSmith Cloud & SQLite)
 │
-├── prompts/                      # Modular prompt templates (LangChain-free)
-│   ├── __init__.py
+├── prompts/                             # Modular prompt templates (Faithfulness & Relevancy)
 │   ├── faithfulness_judge_prompt.py
 │   └── relevancy_judge_prompt.py
 │
 ├── data/
-│   ├── human_baseline.csv        # Human-annotated ground truth (20 records)
-│   ├── load_test_150.csv         # Extended load test dataset (150 records)
-│   ├── llm_eval_results.json     # Phase 1 output
-│   └── shadow_evals.db           # Phase 3 SQLite observability database
+│   ├── human_baseline.csv               # Human-annotated ground truth (20 records)
+│   ├── load_test_150.csv                # Extended load test dataset (150 records)
+│   ├── llm_eval_results.json            # Phase 1 evaluation output
+│   └── shadow_evals.db                  # Phase 3 SQLite observability database
 │
 └── docs/
-    ├── LLM_As_A_Judge.md
-    └── SCALING_AND_PRODUCTION_ROADMAP.md
+    ├── architecture.md                  # Deep-dive system architecture & waterfall routing
+    ├── configuration.md                 # config.yaml settings & tuning guide
+    └── observability.md                 # LangSmith & SQLite observability documentation
 ```
 
 ## How It Works
@@ -85,26 +93,23 @@ evaluator.enqueue(incident_id, context, prompt, summary)  # Non-blocking
 
 3. **Run the Pipeline:**
    ```bash
-   # Run Phase 1 (Evaluation) + Phase 2 (Calibration Gate)
-   python run_pipeline.py
-
-   # Run Phase 3 Simulation (Shadow Eval on 10 records + Drift Report)
-   # Set online_evaluation.run_simulation: true in config.yaml, then:
-   python run_pipeline.py
+   # Run the full pipeline (Phase 1 Batch + Phase 2 Calibration Gate + Phase 3 Shadow Eval)
+   python scripts/run_pipeline.py
    ```
 
 ## Supported LLM Providers
 
 | Provider | Config Prefix | Free Tier | Example |
 | :--- | :--- | :--- | :--- |
-| Google Gemini | `gemini/` | ✅ 15 RPM, 1M TPM | `gemini/gemini-3.8-flash` |
-| Groq | `groq/` | ✅ 14,400 RPM, 8K TPM | `groq/qwen/qwen3.8-27b` |
+| Google Gemini | `gemini/` | ✅ 15 RPM, 1M TPM | `gemini/gemini-3.5-flash` |
+| Groq | `groq/` | ✅ 14,400 RPM, 8K TPM | `groq/llama3-8b-8192` |
 | OpenRouter | *(none)* | ✅ 50 req/day | `meta-llama/llama-3.3-70b-instruct:free` |
 | OpenAI | *(none)* | ❌ Paid | `openai/gpt-4o-mini` |
 
 ## Documentation
-- [LLM As A Judge Concept](docs/LLM_As_A_Judge.md)
-- [Scaling and Production Roadmap](docs/SCALING_AND_PRODUCTION_ROADMAP.md)
+- [System Architecture & Fallback Routing](docs/architecture.md)
+- [Configuration & Settings Guide](docs/configuration.md)
+- [Observability (LangSmith & SQLite)](docs/observability.md)
 
 ---
 *Designed with robustness, modularity, and automated quality control for modern GenAI engineering teams.*
