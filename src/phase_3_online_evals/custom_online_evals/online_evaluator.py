@@ -25,7 +25,7 @@ from datetime import datetime
 from openai import RateLimitError
 
 from src.llm_client import build_async_client, clean_json_text, invoke_with_fallback
-from src.phase_3_online_evals.custom_online_evals import get_backend, ObservabilityBackend
+from src.phase_3_online_evals.langsmith_online_evals import get_backend, ObservabilityBackend
 from prompts.faithfulness_judge_prompt import FAITHFULNESS_JUDGE_PROMPT
 from prompts.relevancy_judge_prompt import RELEVANCY_JUDGE_PROMPT
 

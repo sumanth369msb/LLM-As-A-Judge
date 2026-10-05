@@ -34,8 +34,8 @@ Built with CI/CD integration in mind, the pipeline incorporates a **Calibration 
 │   │   └── calibration/                 # Weighted delta calculation & MAE gate math
 │   │
 │   └── phase_3_online_evals/            # Phase 3: Online Shadow Evaluation & Tracing
-│       ├── langsmith_online_evals/      # Async production shadow-mode handlers
-│       └── custom_online_evals/         # Observability backends (LangSmith Cloud & SQLite)
+│       ├── custom_online_evals/         # Async production shadow-mode handlers
+│       └── langsmith_online_evals/      # Observability backends (LangSmith Cloud & SQLite)
 │
 ├── prompts/                             # Modular prompt templates (Faithfulness & Relevancy)
 │   ├── faithfulness_judge_prompt.py

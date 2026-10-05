@@ -109,7 +109,7 @@ def main():
 
     if online_cfg.get('run_simulation', False):
         print(">>> Phase 3: Simulating Online Shadow Evaluations...")
-        from src.phase_3_online_evals.langsmith_online_evals import simulate_shadow_evals, run_drift_report
+        from src.phase_3_online_evals.custom_online_evals import simulate_shadow_evals, run_drift_report
 
         sim_data_path = str(PROJECT_ROOT / online_cfg.get('simulation_data', input_data_path))
 
@@ -131,7 +131,7 @@ def main():
 
     elif online_cfg.get('run_drift_report', False):
         print("\n>>> Phase 3: Generating Drift Monitoring Report...")
-        from src.phase_3_online_evals.langsmith_online_evals import run_drift_report
+        from src.phase_3_online_evals.custom_online_evals import run_drift_report
         run_drift_report(
             days=online_cfg.get('report_lookback_days', 7),
             observability_backend=obs_backend,
